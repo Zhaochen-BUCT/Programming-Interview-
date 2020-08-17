@@ -1,0 +1,26 @@
+def fun(c,t):
+    f = f(c,t)
+    return f 
+#input
+#   c0,t0:初始值
+#     h  :步长
+#     N  :迭代次数
+#print
+#    c1,t1:每次迭代输出的结果
+def rf4(c0,t0,h,N):
+    n = 1
+    while(n != N):
+        t1 = t0 + h
+        k1 = fun(c0, t0)
+        k2 = fun(t0+h/2, c0+h*k1/2)
+        k3 = fun(t0+h/2, c0+h*k2/2)
+        k4 = fun(t1, c0+h*k3)
+        c1 = c0 + h * (k1 + 2* k2 + 2 * k3 + k4) / 6
+        print("%.2f, %.6f" %(c1, t1))
+        n = n + 1
+        c0 = c1
+        t0 = t1
+
+def main():
+    rf4(c0,t0,h,N)
+main()       
