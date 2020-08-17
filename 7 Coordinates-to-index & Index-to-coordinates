@@ -1,0 +1,127 @@
+#7.1 1to2
+def my_reshape_1to2(data, L1, L2):
+    data_x1 = (data % L1)
+    data_x2 = (data // L1)
+    return [data_x1, data_x2]
+
+
+if __name__ == '__main__':
+
+    L1 = 50
+    L2 = 57
+    my_line = []
+    with open("/Users/zhaochen/Desktop/input_index_7_1.txt") as f:
+        while True:
+            line = f.readline()
+            if not line:
+                break
+            my_line.append(line)
+
+    f = open('/Users/zhaochen/Desktop/output_index_7_1.txt', mode='w')
+    f.write('{}\t{}\n'.format('x1', 'x2'))
+    for i in range(1, len(my_line)):
+        line = my_line[i].strip('\n')
+        line = int(line)
+        [x1, x2] = my_reshape_1to2(line, L1, L2)
+        f.write('{}\t{}\n'.format(x1, x2))
+    f.close()
+
+
+#7.1 2to1
+def my_reshape_2to1(x1, x2, L1, L2):
+    data = x2 * L1 + x1
+    return data
+
+if __name__ == '__main__':
+
+    L1 = 50
+    L2 = 57
+    my_line = []
+    with open("/Users/zhaochen/Desktop/input_coordinates_7_1.txt") as f:
+        while True:
+            line = f.readline()
+            if not line:
+                break
+            my_line.append(line)
+
+    f = open('/Users/zhaochen/Desktop/output_coordinates_7_1.txt', mode='w')
+    f.write('{}\n'.format('index'))
+    for i in range(1, len(my_line)):
+        line = my_line[i].strip('\n')
+        line = line.split('\t')
+        x1 = int(line[0])
+        x2 = int(line[1])
+        index = my_reshape_2to1(x1, x2, L1, L2)
+        f.write('{}\n'.format(index))
+    f.close()
+
+#7.2 1to6
+def my_reshape_1to6(data, L6):
+    x = []
+    for i in range(5, 0, -1):
+        ml = 1
+        for j in range(i):
+            ml *= L6[j]
+        x_l = data // ml
+        x.append(x_l)
+        data -= x_l * ml
+    x.append(data)
+    return x
+
+
+if __name__ == '__main__':
+
+    my_line = []
+    L6 = [4, 8, 5, 9, 6, 7]
+    with open("/Users/zhaochen/Desktop/input_index_7_2.txt") as f:
+        while True:
+            line = f.readline()
+            if not line:
+                break
+            my_line.append(line)
+
+    f = open('/Users/zhaochen/Desktop/output_index_7_2.txt', mode='w')
+    f.write('{}\t{}\t{}\t{}\t{}\t{}\n'.format('x1', 'x2', 'x3', 'x4', 'x5', 'x6'))
+    for i in range(1, len(my_line)):
+        line = my_line[i].strip('\n')
+        line = int(line)
+
+        x = my_reshape_1to6(line, L6)
+        f.write('{}\t{}\t{}\t{}\t{}\t{}\n'.format(x[-1], x[-2], x[-3], x[-4], x[-5], x[-6]))
+
+    f.close()
+
+
+#7.2 6to1
+
+def my_reshape_6to1(data, L6):
+    index = data[0]
+    for i in range(1, 6):
+        ml = 1
+        for j in range(i):
+            ml *= L6[j]
+        index += data[i] * ml
+    return index
+
+
+if __name__ == '__main__':
+
+    my_line = []
+    L6 = [4, 8, 5, 9, 6, 7]
+    with open('/Users/zhaochen/Desktop/input_coordinates_7_2.txt') as f:
+        while True:
+            line = f.readline()
+            if not line:
+                break
+            my_line.append(line)
+
+    f = open('/Users/zhaochen/Desktop/output_coordinates_7_2.txt', mode='w')
+    f.write('{}\n'.format('index'))
+    for i in range(1, len(my_line)):
+        line = my_line[i].strip('\n')
+        line = line.split('\t')
+        for i in range(6):
+            line[i] = int(line[i])
+        index = my_reshape_6to1(line, L6)
+        f.write('{}\n'.format(index))
+    f.close()
