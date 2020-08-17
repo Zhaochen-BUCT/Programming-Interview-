@@ -1,0 +1,24 @@
+# 6 Points inside outside polygon
+
+def isInsidePolygon(pt, poly):
+    c = False
+    i = -1
+    l = len(poly)
+    j = l - 1
+    while i < l - 1:
+        i += 1
+        if ((poly[i][0] <= pt[0] and pt[0] < poly[j][0]) or (
+                poly[j][0] <= pt[0] and pt[0] < poly[i][0])):
+            if (pt[1] < (poly[j][1] - poly[i][1]) * (pt[0] - poly[i][0]) / (
+                poly[j][0] - poly[i][0]) + poly[i][1]):
+                c = not c
+        j = i
+    return c
+
+f = open('/Users/zhaochen/Desktop/output_question_6.txt','w')
+if __name__ == '__main__':
+    ptlist = [[7, 11], [10, 14], [11, 4], [12, 21], [16, 3], [16, 10], [17, 4], [18, 7], [18, 17], [20, 7]]
+    abc = [[7, 11], [10, 14], [11, 4], [12, 21], [16, 3], [16, 10], [17, 4], [18, 7], [18, 17], [20, 7]]
+    for i in range(10):
+        print(isInsidePolygon(ptlist[i], abc), file = f)
+f.close()
